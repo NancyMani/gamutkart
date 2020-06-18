@@ -20,7 +20,7 @@ pipeline {
         skipDefaultCheckout(true)
       }
       steps {
-        sh 'docker build -t rkdockerking/gamutkart:${BUILD_NUMBER} .'
+        sh 'docker build -t nancyrheniusbenny/gamutkart:${BUILD_NUMBER} .'
       }
     }
 
