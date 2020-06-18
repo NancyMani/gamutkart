@@ -34,7 +34,7 @@ pipeline {
       }
       steps {
         sh 'docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW'
-        sh 'docker push rkdockerking/gamutkart:${BUILD_NUMBER}'
+        sh 'docker push nancyrheniusbenny/gamutkart:${BUILD_NUMBER}'
       }
     }
     stage('DeployApp') {
