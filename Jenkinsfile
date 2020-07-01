@@ -43,8 +43,8 @@ pipeline {
         skipDefaultCheckout(true)
       }
       steps {
-          withCredentials([sshUserPrivateKey(credentialsId: 'remotehost', keyFileVariable: 'REMOTEHOST_KEY', passphraseVariable: '', usernameVariable: 'vagrant')])
-          script {
+       //   withCredentials([sshUserPrivateKey(credentialsId: 'remotehost', keyFileVariable: 'REMOTEHOST_KEY', passphraseVariable: '', usernameVariable: 'vagrant')])
+        //  script {
         //  def remote = [:]
         //  remote.name = "RemoteHost"
          // remote.host = "192.168.0.104"
@@ -55,7 +55,7 @@ pipeline {
             sshagent(['test']) {
               sh "scp -o StrictHostKeyChecking=no webapps/target/gamutgurus.war test@192.168.42.209:/opt/tomcat/webapps"
             }
-          }
+        //  }
       }
     }
   }
