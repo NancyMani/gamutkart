@@ -14,15 +14,15 @@ pipeline {
       }
     }
 
-    stage('ImageBuild') {
-      agent any
-      options {
-        skipDefaultCheckout(true)
-      }
-      steps {
-        sh 'docker build -t nancyrheniusbenny/gamutkart:${BUILD_NUMBER} .'
-      }
-    }
+    //    stage('ImageBuild') {
+     //    agent any
+     // options {
+      //  skipDefaultCheckout(true)
+    //  }
+   //   steps {
+   //     sh 'docker build -t nancyrheniusbenny/gamutkart:${BUILD_NUMBER} .'
+  //    }
+  //  }
 
 //    stage('ImagePush') {
  //     agent any
