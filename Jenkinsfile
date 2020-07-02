@@ -53,7 +53,7 @@ pipeline {
        //   remote.identityFile = REMOTEHOST_KEY
        //   sshCommand remote: remote, command: "sudo docker ps -a" 
             sshagent(['test']) {
-              sh "scp -o StrictHostKeyChecking=no webapps/target/gamutgurus.war vagrant@192.168.42.209:/opt/tomcat/webapps"
+              sh "scp -o StrictHostKeyChecking=no webapps/target/gamutgurus.war vagrant@192.168.0.109:/opt/tomcat/webapps"
             }
         //  }
       }
