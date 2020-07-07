@@ -54,7 +54,7 @@ pipeline {
        //   sshCommand remote: remote, command: "sudo docker ps -a" 
             sshagent(['nancy']) {
       //        sh "ssh -o StrictHostKeyChecking=no -i vagrant@192.168.0.106 hostname"
-              sh 'ssh -o StrictHostKeyChecking=no -i daddy.pem nancy 192.168.0.106 hostname'
+              sh 'ssh -o StrictHostKeyChecking=no -i nancy 192.168.0.106 hostname'
             }
         //  }
       } 
