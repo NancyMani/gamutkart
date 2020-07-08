@@ -55,7 +55,7 @@ pipeline {
             sshagent(['nancy']) {
       //        sh "ssh -o StrictHostKeyChecking=no -i vagrant@192.168.0.106 hostname"
               sh 'ssh -o StrictHostKeyChecking=no nancy@192.168.0.108 hostname'
-              sh 'scp -o StrictHostKeyChecking=no target/gamutgurus.war nancy@192.168.0.108:/opt/tomcat'
+              sh 'scp -o StrictHostKeyChecking=no target/gamutgurus.war nancy@192.168.0.108:/tmp'
             }
         //  }
       } 
