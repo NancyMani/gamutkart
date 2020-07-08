@@ -14,29 +14,29 @@ pipeline {
       }
     }
 
-    //    stage('ImageBuild') {
-     //    agent any
-     // options {
-      //  skipDefaultCheckout(true)
-    //  }
-   //   steps {
-   //     sh 'docker build -t nancyrheniusbenny/gamutkart:${BUILD_NUMBER} .'
-  //    }
-  //  }
+      stage('ImageBuild') {
+        agent any
+      options {
+        skipDefaultCheckout(true)
+      }
+      steps {
+        sh 'docker build -t nancyrheniusbenny/gamutkart:${BUILD_NUMBER} .'
+      }
+    }
 
-//    stage('ImagePush') {
- //     agent any
- //     environment {
- //       DOCKERHUB_CREDS = credentials('dockerhub')
-   //   }
-   //   options {
- //       skipDefaultCheckout(true)
-  //    }
-   //   steps {
-     //   sh 'docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW'
-    //    sh 'docker push nancyrheniusbenny/gamutkart:${BUILD_NUMBER}'
-  //    }
-//    }
+    stage('ImagePush') {
+      agent any
+      environment {
+        DOCKERHUB_CREDS = credentials('dockerhub')
+      }
+      options {
+        skipDefaultCheckout(true)
+      }
+      steps {
+          sh 'docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW'
+          sh 'docker push nancyrheniusbenny/gamutkart:${BUILD_NUMBER}'
+         }
+      }
     stage('DeployApp') {
       agent any
       options {
@@ -54,8 +54,10 @@ pipeline {
        //   sshCommand remote: remote, command: "sudo docker ps -a" 
             sshagent(['nancy']) {
       //        sh "ssh -o StrictHostKeyChecking=no -i vagrant@192.168.0.106 hostname"
-              sh 'ssh -o StrictHostKeyChecking=no nancy@192.168.0.108 hostname'
-              sh 'scp -o StrictHostKeyChecking=no target/gamutgurus.war nancy@192.168.0.108:/opt/tomcat/webapps'
+              sh 'ssh -o StrictHostKeyChecking=no vagrant@192.168.0.108 hostname'
+              sh 'ssh -o StrictHostKeyChecking=no vagrant@192.168.0.108 "sudo docker rm -f gamutkart"' 
+              sh 'ssh -o StrictHostKeyChecking=no vagrant@192.168.0.108 "sudo docker run -t -d -p 8090:8080 --name gamutkart nancyrheniusbenny/gamutkart:${BUILD_NUMBER}"'            
+             // sh 'scp -o StrictHostKeyChecking=no target/gamutgurus.war nancy@192.168.0.108:/opt/tomcat/webapps'
             }
         //  }
       } 
