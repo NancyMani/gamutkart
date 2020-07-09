@@ -53,11 +53,11 @@ pipeline {
        //   remote.identityFile = REMOTEHOST_KEY
        //   sshCommand remote: remote, command: "sudo docker ps -a" 
             sshagent(['nancy']) {
-      //        sh "ssh -o StrictHostKeyChecking=no -i vagrant@192.168.0.106 hostname"
-              sh 'ssh -o StrictHostKeyChecking=no vagrant@192.168.0.108 hostname'
-              sh 'ssh -o StrictHostKeyChecking=no vagrant@192.168.0.108 "sudo docker rm -f gamutkart"' 
-              sh 'ssh -o StrictHostKeyChecking=no vagrant@192.168.0.108 "sudo docker run -t -d -p 8090:8080 --name gamutkart nancyrheniusbenny/gamutkart:${BUILD_NUMBER}"'            
-             // sh 'scp -o StrictHostKeyChecking=no target/gamutgurus.war nancy@192.168.0.108:/opt/tomcat/webapps'
+      //        sh "ssh -o StrictHostKeyChecking=no -i vagrant@192.168.0.105 hostname"
+              sh 'ssh -o StrictHostKeyChecking=no vagrant@192.168.0.105 hostname'
+              sh 'ssh -o StrictHostKeyChecking=no vagrant@192.168.0.105 "sudo docker rm -f gamutkart"' 
+              sh 'ssh -o StrictHostKeyChecking=no vagrant@192.168.0.105 "sudo docker run -t -d -p 8090:8080 --name gamutkart nancyrheniusbenny/gamutkart:${BUILD_NUMBER}"'            
+             // sh 'scp -o StrictHostKeyChecking=no target/gamutgurus.war nancy@192.168.0.105:/opt/tomcat/webapps'
             }
         //  }
       } 
