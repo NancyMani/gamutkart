@@ -7,36 +7,26 @@ pipeline {
           image 'maven:3-alpine'
           args '-v /root/.m2:/root/.m2'
         }
-
       }
       steps {
         sh 'mvn clean install'
       }
     }
-
-      stage('ImageBuild') {
-        agent any
-      options {
-        skipDefaultCheckout(true)
-      }
-      steps {
-        sh 'docker build -t nancyrheniusbenny/gamutkart:${BUILD_NUMBER} .'
-      }
-    }
-
-    stage('ImagePush') {
-      agent any
-      environment {
-        DOCKERHUB_CREDS = credentials('dockerhub')
-      }
-      options {
-        skipDefaultCheckout(true)
-      }
-      steps {
-          sh 'docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW'
-          sh 'docker push nancyrheniusbenny/gamutkart:${BUILD_NUMBER}'
-         }
-      }
+    stage ('image build and push') {
+			agent any
+				options {
+					skipDefaultCheckout(true)
+				}
+			steps {
+				script {
+					docker.withRegistry('', 'dockerhub'){
+					def app = docker.build("nancyrheniusbenny/gamutkart:${BUILD_NUMBER}")
+					app.push()
+					}
+				}
+			}	
+		}
+    
     stage('DeployApp') {
       agent any
       options {
