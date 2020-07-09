@@ -1,0 +1,30 @@
+pipeline {
+	agent none
+	stages {
+		stage ('Appbuild') {
+			agent {
+				docker {
+					image 'maven:3-alpine'
+					agrs '-v/root/.m2:/root/.m2'
+				}
+			}
+			steps {
+				sh 'mvn clean install'
+			}
+		}
+		stage ('imagebuild') {
+			agent any
+				options {
+					skipDefaultCheckout(true)
+				}
+			steps {
+				script {
+					def app = docker.build("nancyrheniusbenny/gamutkart:${BUILD_NUMBER}")
+					app.inside {
+						sh 'docker --version'
+					}
+				}
+			}	
+		}
+	}
+}
