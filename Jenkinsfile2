@@ -5,7 +5,7 @@ pipeline {
 			agent {
 				docker {
 					image 'maven:3-alpine'
-					args '-v /root/.m2:/root/.m2'
+					agrs '-v/root/.m2:/root/.m2'
 				}
 			}
 			steps {
@@ -19,9 +19,11 @@ pipeline {
 				}
 			steps {
 				script {
+					docker.withRegistry('', 'dockerhub'){
 					def app = docker.build("nancyrheniusbenny/gamutkart:${BUILD_NUMBER}")
-					app.inside {
-					sh 'make test'
+					app.push()
+					}
+					
 					}
 				}
 			}	
