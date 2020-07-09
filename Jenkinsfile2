@@ -21,7 +21,7 @@ pipeline {
 				script {
 					def app = docker.build("nancyrheniusbenny/gamutkart:${BUILD_NUMBER}")
 					app.inside {
-						sh 'docker --version'
+						sh 'make test'
 					}
 				}
 			}	
