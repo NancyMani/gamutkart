@@ -22,8 +22,7 @@ pipeline {
 					docker.withRegistry('', 'dockerhub'){
 					def app = docker.build("nancyrheniusbenny/gamutkartdemo:${BUILD_NUMBER}")
 					app.push()
-					}
-					
+								
 					}
 				}
 			}	
